@@ -1,4 +1,5 @@
 (function(modules) {
+            // 已加载的模块
             var installedModules = {};
             function require(moduleId) {
                 if(installedModules[moduleId]) {
@@ -12,7 +13,8 @@
                 
                 var moduleFunc = modules[moduleId];
 
-                moduleFunc(require, module, module.exports);
+                // 绑定模块内的this
+                moduleFunc.call(module.exports, require, module, module.exports);
                 module.loaded = true;
                 return module.exports;
             }
@@ -20,74 +22,70 @@
             return require('E:\git_bash\mini\mini-pack\src\index.js')
         })({'E:\git_bash\mini\mini-pack\src\index.js': function(require, module, exports) {"use strict";
 
-var _about = require("./about.js");
+var _esm = require("./esm1.js");
 
-var constant = require('./constant.js');
+var _esm2 = require("./esm2.js");
 
-var num = '123';
-console.log(num);
-console.log(constant.arr);
-var sum = constant.sum(3, 4);
-console.log("\u8BA1\u7B97\u4E24\u6570\u4E4B\u548C\u4E3A: ".concat(sum));
-var btn1 = document.getElementById('btn1');
-btn1.addEventListener('click', function (e) {
-  (0, _about.say)(num);
-}, false);},'./about.js': function(require, module, exports) {"use strict";
+var cjs1 = require('./cjs1.js');
+
+var cjs2 = require('./cjs2.js');
+
+document.getElementById('btn1').addEventListener('click', function () {
+  (0, _esm.say)();
+});
+document.getElementById('btn2').addEventListener('click', function () {
+  (0, _esm2.say)();
+});
+document.getElementById('btn3').addEventListener('click', function () {
+  cjs1.count++;
+  console.log("cjs1.countcount\u8C03\u7528\u6B21\u6570\u4E3A: ".concat(cjs1.count));
+});
+document.getElementById('btn4').addEventListener('click', function () {
+  cjs2.count++;
+  console.log("cjs1.countcount\u8C03\u7528\u6B21\u6570\u4E3A: ".concat(cjs2.count));
+});},'./esm1.js': function(require, module, exports) {"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.say = say;
-exports.aboutStr = void 0;
+exports.str1 = void 0;
+var count = 0;
+
+function say() {
+  count++;
+  console.log("esm1\u7684count\u8C03\u7528\u6B21\u6570\u4E3A: ".concat(count));
+}
+
+var str1 = 'str1';
+exports.str1 = str1;},'./esm2.js': function(require, module, exports) {"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.say = say;
+exports.str2 = void 0;
 
 var cjs2 = require('./cjs2.js');
 
-function say(text) {
+var count = 0;
+
+function say() {
   count++;
   cjs2.count++;
-  console.log("say\u8C03\u7528\u6B21\u6570\u4E3A: ".concat(count, ", say: ").concat(text));
-  console.log("constant\u8C03\u7528\u6B21\u6570\u4E3A: ".concat(cjs2.count));
+  console.log("esm2\u7684count\u8C03\u7528\u6B21\u6570\u4E3A: ".concat(count));
+  console.log("esm2\u8C03\u7528cjs2\u7684count\uFF0Ccount\u4E3A: ".concat(cjs2.count));
 }
 
-var count = 0;
-var aboutStr = 'about string';
-exports.aboutStr = aboutStr;},'./cjs2.js': function(require, module, exports) {"use strict";
+var str2 = 'str2';
+exports.str2 = str2;},'./cjs2.js': function(require, module, exports) {"use strict";
 
 var count = 0;
 module.exports = {
   count: count
-};},'./constant.js': function(require, module, exports) {"use strict";
-
-var _about = require("./about.js");
-
-var arr = ['this', 'is', 'commonJS'];
-var constantStr = 'this is commonJS string';
-
-var cjs2 = require('./cjs2.js');
+};},'./cjs1.js': function(require, module, exports) {"use strict";
 
 var count = 0;
-/**
- * 计算两数之和
- * @param {number} a
- * @param {number} b
- */
-
-var sum = function sum() {
-  var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-  var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-  return a + b;
-};
-
-var btn2 = document.getElementById('btn2');
-btn2.addEventListener('click', function (e) {
-  (0, _about.say)(111);
-  cjs2.count++;
-  console.log("cjs2\u8C03\u7528\u6B21\u6570\u4E3A: ".concat(cjs2.count));
-}, false);
-console.log(_about.aboutStr);
 module.exports = {
-  arr: arr,
-  constantStr: constantStr,
-  sum: sum,
   count: count
 };},})

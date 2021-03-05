@@ -31,19 +31,6 @@ module.exports = {
                 if (node.callee.name === 'require') {
                     dependencies.push(node.arguments[0].value);
                 }
-                // if (node.callee.type === 'Import') {
-                //     childrens.push({
-                //         type: 'chunk',
-                //         path: node.arguments[0].value,
-                //         chunkId: node.arguments[0].value
-                //     });
-                //     _this.chunks[node.arguments[0].value] = {
-                //         id: _this.chunksId,
-                //         context: '',
-                //         graph: []
-                //     };
-                //     _this.chunksId++;
-                // }
             }
         });
         return dependencies;

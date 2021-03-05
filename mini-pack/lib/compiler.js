@@ -58,6 +58,7 @@ module.exports = class Compiler {
 
         // 核心
         const bundle = `(function(modules) {
+            // 已加载的模块
             var installedModules = {};
             function require(moduleId) {
                 if(installedModules[moduleId]) {
@@ -71,7 +72,8 @@ module.exports = class Compiler {
                 
                 var moduleFunc = modules[moduleId];
 
-                moduleFunc(require, module, module.exports);
+                // 绑定模块内的this
+                moduleFunc.call(module.exports, require, module, module.exports);
                 module.loaded = true;
                 return module.exports;
             }
