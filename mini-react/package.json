@@ -1,0 +1,14 @@
+{
+  "name": "mini-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel -p 8080 ./public/index.html"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "parcel-bundler": "^1.12.5"
+  }
+}
